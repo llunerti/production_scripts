@@ -107,8 +107,6 @@ cp $INPUT_DIR/${PROCESS_LABEL}_fragment.py $CMSSW_BASE/src/Configuration/GenProd
 scram b -j8
 cd ../..
 
-export CMSSW_SEARCH_PATH=${CMSSW_SEARCH_PATH}:/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/CMSSW_10_6_27/src
-
 #Generate config file
 cmsDriver.py Configuration/GenProduction/python/${PROCESS_LABEL}_fragment.py --python_filename ${CFG_FILENAME_GEN} --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN --fileout file:${OUTPUT_DIR}/${OUT_FILENAME_GEN} --conditions 106X_upgrade2018_realistic_v4 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN --geometry DB:Extended --nThreads $THREADS --era Run2_2018 --no_exec --mc -n $EVENTS
 

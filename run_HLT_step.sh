@@ -19,12 +19,6 @@ OUTPUT_DIR=$PWD;
 EVENTS=100;
 JOB_NUMBER=0
 
-#define HOME variable
-export XRD_LOADBALANCERTTL=86400
-export HOME=${PWD}
-
-echo "!!! HLT STEP, HOME variable: ${HOME} !!!"
-echo "!!! HLT STEP, XRD_LOADBALANCERTTL variable: ${XRD_LOADBALANCERTTL} !!!"
 
 
 while :; do
@@ -109,6 +103,11 @@ cd ../..
 
 # cmsDriver command
 cmsDriver.py  --python_filename $CFG_FILENAME_HLT --eventcontent RAWSIM --customise Configuration/DataProcessing/Utils.addMonitoring --datatier GEN-SIM-RAW --fileout file:${OUTPUT_DIR}/${OUT_FILENAME_HLT} --conditions 102X_upgrade2018_realistic_v15 --customise_commands 'process.source.bypassVersionCheck = cms.untracked.bool(True)' --step HLT:2018v32 --geometry DB:Extended --filein file:$INPUT_DIR/$INPUT_FILENAME_DIGI --era Run2_2018 --no_exec --mc -n $EVENTS || exit $? ;
+
+#define HOME variable
+export HOME=${PWD}
+#check
+echo "!!! HLT STEP, HOME variable: ${HOME} !!!"
 
 # Run the cmsRun
 cmsRun $CFG_FILENAME_HLT || exit $? ;

@@ -11,8 +11,7 @@ die() {
     exit 0
 }
 
-#ABS_PATH=/home/CMS-T3/lunerti/sample_production
-ABS_PATH=/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN
+ABS_PATH=/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/production_scripts
 #export HOME=/home/CMS-T3/lunerti
 EVENTS=10
 PROCESS_LABEL=
@@ -97,9 +96,6 @@ ${ABS_PATH}/run_HLT_step.sh     -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_nu
 ${ABS_PATH}/run_RECO_step.sh    -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
 
 ${ABS_PATH}/run_miniAOD_step.sh -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
-
-echo "!!! YOU ARE IN: ${PWD} !!!"
-echo "!!! ls: $(ls) !!!"
 
 #staging out miniAOD output
 eos cp ${LABEL}_MINIAOD.root /eos/user/l/llunerti/gen_samples/

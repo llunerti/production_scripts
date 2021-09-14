@@ -1,0 +1,40 @@
+{
+  "GEN"     :{
+               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/production_scripts/fragments",
+               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+             },
+
+  "SIM"     :{
+               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
+               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+             },
+
+  "DIGI"    :{
+               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
+               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
+               "PROXY_PATH"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/proxy_dir/x509up_u122257"
+             },
+
+  "HLT"     :{
+               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
+               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+             },
+
+  "RECO"    :{
+               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
+               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+             },
+
+  "MINIAOD" :{
+               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
+               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+             },
+  "PROD"    :{
+               "ABS_PATH"      : "/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/production_scripts",
+               "JOB_NUMBER"    :"0",
+               "EVENTS"        :"1000",
+               "PROCESS_LABEL" :"BsToDsMuNu_DsToPiMuMu_HeavyN_M1p0_V1e-03",
+               "OUTPUT_DIR"    : "/eos/user/l/llunerti/gen_samples/"
+             }
+
+}

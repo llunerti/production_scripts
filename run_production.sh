@@ -2,7 +2,7 @@
 # POSIX
 
 show_help() {
-    echo "Usage: ${0##*/} [-i INPUT_DIR] [-o OUTPUT_DIR] [-l PROCESS_LABEL] [-n NEVENTS] [--proxy_path PROXY_PATH] [--job_number JOB_NUMBER]..."
+    echo "Usage: ${0##*/} [--cfg JSON_CFG_FILE]"
     exit 1
 }
 
@@ -11,15 +11,8 @@ die() {
     exit 0
 }
 
-ABS_PATH=/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/production_scripts
-#export HOME=/home/CMS-T3/lunerti
-EVENTS=10
-PROCESS_LABEL=
-PROXY_PATH=
-INPUT_DIR=
-OUTPUT_DIR=
-JOB_NUMBER=0
-EOS_MGM_URL=root://eosuser.cern.ch
+
+JSON_CFG_FILE=
 
 while :; do
     case $1 in
@@ -27,48 +20,12 @@ while :; do
             show_help  
             exit
             ;;
-        -i|--input_dir)  
+        --cfg)  
             if [ "$2" ]; then
-                INPUT_DIR=$2
+                JSON_CFG_FILE=$2
                 shift
             else
-                die '!!! ERROR: "--input_dir" requires a non-empty option argument !!!'
-            fi
-            ;;
-        -o|--output_dir)  
-            if [ "$2" ]; then
-                OUTPUT_DIR=$2
-                shift
-            else
-                die '!!! ERROR: "--output_dir" requires a non-empty option argument !!!'
-            fi
-            ;;
-        -l|--process_label) 
-            if [ "$2" ]; then
-                PROCESS_LABEL=$2
-                shift
-            else
-                die '!!! ERROR: "--process_label" requires a non-empty option argument !!!'
-            fi
-            ;;
-        -n|--nevents) 
-            if [ "$2" ]; then
-                EVENTS=$2
-                shift
-            fi
-            ;;
-        --proxy_path) 
-            if [ "$2" ]; then
-                PROXY_PATH=$2
-                shift
-            else
-                die '!!! ERROR: "--proxy_path" requires a non-empty option argument !!!'
-            fi
-            ;;
-        --job_number) 
-            if [ "$2" ]; then
-                JOB_NUMBER=$2
-                shift
+                die '!!! ERROR: "--cfg" requires a non-empty option argument !!!'
             fi
             ;;
         --)              # End of all options.
@@ -85,17 +42,25 @@ while :; do
     shift
 done
 
-${ABS_PATH}/run_GEN_step.sh     -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
+#initialize all variables using cfg file
+ABS_PATH=$(jq -r '.PROD.ABS_PATH' ${JSON_CFG_FILE})
+EVENTS=$(jq -r '.PROD.EVENTS' ${JSON_CFG_FILE})
+PROCESS_LABEL=$(jq -r '.PROD.PROCESS_LABEL' ${JSON_CFG_FILE})
+PROXY_PATH=$(jq -r '.DIGI.PROXY_PATH' ${JSON_CFG_FILE})
+JOB_NUMBER=$(jq -r '.PROD.JOB_NUMBER' ${JSON_CFG_FILE})
+EOS_MGM_URL=root://eosuser.cern.ch
 
-${ABS_PATH}/run_SIM_step.sh     -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
-
-${ABS_PATH}/run_DIGI_step.sh    -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} --proxy_path $PROXY_PATH &&\
-
-${ABS_PATH}/run_HLT_step.sh     -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
-
-${ABS_PATH}/run_RECO_step.sh    -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
-
-${ABS_PATH}/run_miniAOD_step.sh -i $INPUT_DIR -o $OUTPUT_DIR -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
+${ABS_PATH}/run_GEN_step.sh     -i $(jq -r '.GEN.INPUT_DIR' ${JSON_CFG_FILE})     -o $(jq -r '.GEN.OUTPUT_DIR' ${JSON_CFG_FILE})     -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
+                                                                                                                                   
+${ABS_PATH}/run_SIM_step.sh     -i $(jq -r '.SIM.INPUT_DIR' ${JSON_CFG_FILE})     -o $(jq -r '.SIM.OUTPUT_DIR' ${JSON_CFG_FILE})     -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
+                                                                                                                                   
+${ABS_PATH}/run_DIGI_step.sh    -i $(jq -r '.DIGI.INPUT_DIR' ${JSON_CFG_FILE})    -o $(jq -r '.DIGI.OUTPUT_DIR' ${JSON_CFG_FILE})    -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} --proxy_path $PROXY_PATH &&\
+                                                                                                                                   
+${ABS_PATH}/run_HLT_step.sh     -i $(jq -r '.HLT.INPUT_DIR' ${JSON_CFG_FILE})     -o $(jq -r '.HLT.OUTPUT_DIR' ${JSON_CFG_FILE})     -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
+                                                                                                                                   
+${ABS_PATH}/run_RECO_step.sh    -i $(jq -r '.RECO.INPUT_DIR' ${JSON_CFG_FILE})    -o $(jq -r '.RECO.OUTPUT_DIR' ${JSON_CFG_FILE})    -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
+                                                                                                                                   
+${ABS_PATH}/run_miniAOD_step.sh -i $(jq -r '.MINIAOD.INPUT_DIR' ${JSON_CFG_FILE}) -o $(jq -r '.MINIAOD.OUTPUT_DIR' ${JSON_CFG_FILE}) -n $EVENTS --job_number ${JOB_NUMBER} --process_label ${PROCESS_LABEL} &&\
 
 #staging out miniAOD output
-eos cp ${LABEL}_MINIAOD.root /eos/user/l/llunerti/gen_samples/
+eos cp $(jq -r '.MINIAOD.OUTPUT_DIR' ${JSON_CFG_FILE})/${PROCESS_LABEL}_MINIAOD.root $(jq -r '.PROD.OUTPUT_DIR' ${JSON_CFG_FILE})

@@ -1,37 +1,36 @@
 {
   "GEN"     :{
-               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/production_scripts/fragments",
-               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+               "INPUT_DIR"     :"/home/CMS-T3/lunerti/production_scripts/fragments",
+               "OUTPUT_DIR"    :"/home/CMS-T3/lunerti/production_scripts"
              },
 
   "SIM"     :{
-               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
-               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+               "INPUT_DIR"     :"/home/CMS-T3/lunerti/production_scripts",
+               "OUTPUT_DIR"    :"/home/CMS-T3/lunerti/production_scripts"
              },
 
   "DIGI"    :{
-               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
-               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
-               "PROXY_PATH"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/proxy_dir/x509up_u122257"
+               "INPUT_DIR"     :"/home/CMS-T3/lunerti/production_scripts",
+               "OUTPUT_DIR"    :"/home/CMS-T3/lunerti/production_scripts",
+               "PROXY_PATH"    :"/home/CMS-T3/lunerti/production_scripts/proxy_dir/x509up_u36053"
              },
 
   "HLT"     :{
-               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
-               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+               "INPUT_DIR"     :"/home/CMS-T3/lunerti/production_scripts",
+               "OUTPUT_DIR"    :"/home/CMS-T3/lunerti/production_scripts"
              },
 
   "RECO"    :{
-               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
-               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+               "INPUT_DIR"     :"/home/CMS-T3/lunerti/production_scripts",
+               "OUTPUT_DIR"    :"/home/CMS-T3/lunerti/production_scripts"
              },
 
   "MINIAOD" :{
-               "INPUT_DIR"     :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN",
-               "OUTPUT_DIR"    :"/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN"
+               "INPUT_DIR"     :"/home/CMS-T3/lunerti/production_scripts",
+               "OUTPUT_DIR"    :"/home/CMS-T3/lunerti/production_scripts"
              },
   "PROD"    :{
-               "ABS_PATH"      : "/afs/cern.ch/work/l/llunerti/private/BsToDsMuNu_generation/GEN/production_scripts",
-               "JOB_NUMBER"    :"0",
+               "ABS_PATH"      :"/home/CMS-T3/lunerti/production_scripts",
                "EVENTS"        :"1000",
                "PROCESS_LABEL" :"BsToDsMuNu_DsToPiMuMu_HeavyN_M1p0_V1e-03",
                "OUTPUT_DIR"    : "/eos/user/l/llunerti/gen_samples/"

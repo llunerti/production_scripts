@@ -20,9 +20,6 @@ EVENTS=100;
 JOB_NUMBER=0
 CMSSW_RELEASE=CMSSW_10_6_17_patch1
 
-#define HOME variable
-export HOME=/afs/cern.ch/user/l/llunerti
-
 echo "!!! DIGI STEP, HOME variable: ${HOME} !!!"
 
 while :; do
